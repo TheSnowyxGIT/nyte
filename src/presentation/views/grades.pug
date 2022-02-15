@@ -1,0 +1,141 @@
+extends layout_menu
+
+block append head 
+    title EpiMarks - Notes
+    link(rel='stylesheet' href='css/grades.css')
+block content
+
+    .popupSetting#popupSubject
+        .popupBox
+            .popupHead 
+                span Title 
+            .inputpopList
+                .inputpop#reset 
+                    .inputpopName Réinitialiser les notes
+                .inputpop#back
+                    .inputpopName Retour
+
+    .popupSetting#popupModule
+        .popupBox
+            .popupHead 
+                span Title 
+            .inputpopList
+                .inputpop#back
+                    .inputpopName Retour
+
+
+
+    section.info-area.font-poppins
+        .info-grid.container.mx-auto.grid.cols-1.lg-cols-2
+            .grid-one
+                .py-2.welcome.text-white.text-lg.sm-text-xl.font-bold
+                    span.d-block.animate__animated.animate__fadeInDown.animate__faster Bienvenue, Adrien Pingard
+                .py-5.animate__animated.animate__fadeInUp
+                    a.mr-2.btn.btn-primary.bg-gradient.text-white.btn-shadow(href="/profile") Profil
+                    a.mr-2.btn.btn-secondary.bg-gradient-indingo.text-white.btn-shadow(href="#grades-area") Rentrer mes notes
+                .py-5.card.animate__animated.animate__fadeInUp
+            .grid-two.text-white.btn-shadow.animate__animated.animate__bounceInRight
+                .title.py-5.mx-5.text-white.text-lg.sm-text-xl.font-bold
+                    span Informations
+                .information-area.py-5.mx-10
+                    p bla bla bla bla
+                    p bla bla bla blabla bla
+                    p bla bla bla blabla
+                    p bla bla bla blabla blabla bla
+
+    section#grades-area.grades-area.font-poppins
+        .title.py-10
+            .py-2.text-white.text-lg.sm-text-xl.font-bold.text-center
+                span Mes notes
+            .py-2.text-center
+                p.text-gray Le calcul de note essaye de respecter au mieux les spécifications délivrées par EPITA.
+                p.text-gray Mais pour certaines matières, il est possible que nous ayons changer quelque peu le système d'evaluation.
+                br
+                p.text-gray Pour les differents coefficients, je vous conseil de vous referer aux documents officiels EPITA,
+                p.text-gray en attendant qu'ils soient visibles directement depuis le site.
+        .data-area.py-5.container.mx-auto.font-poppins.btn-shadow
+            .semester-area
+                .title.text-white.text-md.font-bold.text-center
+                    span Mes semestres
+                .semester-list.py-5.flex.flex-wrap.justify-center
+                    btn.semester-btn.mr-2.btn.btn-secondary.bg-gradient-indingo.text-white.btn-shadow.no-border-radius s5
+            .module-area 
+                .title.text-white.text-md.font-bold.text-center
+                    span Mes modules
+                ul.module-list.py-5.px-5.ks-cboxtags
+                    li.module-btn
+                        input(type="checkbox" value="empty")
+                        label(onclick="$(this).parent().find('input').trigger('click')") Rainbow
+            .selected-modules-count.py-5.text-gray.text-sm.text-center
+                span 3 modules selectionnés
+            .module-container.my-5.lg-px-5.grid.cols-1.w-100
+                // modules
+                                            
+    
+        // models
+        models(style='display:none')
+
+            btn#SemesterBtnHTML.semester-btn.mr-2.btn.btn-secondary.bg-gradient-indingo.text-white.btn-shadow.no-border-radius Nom du semestre
+
+            li#ModuleBtnHTML.module-btn
+                input(type="checkbox" value="empty")
+                label Nom du module
+
+            #ModuleBOX.module-box.flex.flex-column
+                .module-head.py-5.bg-gradient-dark.w-100.grid.cols1
+                    .title.text-white.text-center
+                        h2 MODULE NAME
+                        p.text-gray PERCENTAGE
+                    .py-5
+                        .average.w-100.text-center
+                            span.text-white GRADE
+                        .progressBar
+                            .slide(style='--value: 10.00;')
+                    .valid-area.py-5
+                        .main.w-100.text-center.text.flex.justify-center.text-md
+                            span.text-white.mr-2 Status : 
+                            span.value STATUS
+                        .w-100.text-center
+                            p.text-gray détails 
+                        .subjects.grid.cols-1.lg-cols-2
+                            #ValidSubjectBOX.valid-subject.flex.justify-center.text-sm.w-100.mx-auto
+                                span.name.text-gray NOM MATIERE
+                                span.text-gray.mr-2 : 
+                                span.value STATUS
+                .subject-container.py-5.grid.cols-1.lg-cols-2
+                    #SubjectHTML.box.btn-shadow
+                        .boxHead.text-white
+                            .boxSubject MATIERE NAME
+                        .boxSummary
+                            // indiquer la couleur et la note dans --note et --color
+                            .mx-5.text-white.dial(style='--note:10; --back-color:var(--text-dark)')
+                                // valeur de la progress bar (moyenne)
+                                .dialVal 10.00
+                            .boxDesc.text-white
+                                #CTypeAVG.ct_avg
+                                    .name TYPE
+                                    .progressBar
+                                        .slide(style='--value: 10.0;')
+                            .boxMenu
+                                .boxButton.subjectScore(style="--color: var(--color-warning);")
+                                    i.fas.fa-trophy
+                                .boxButton.subjectSetting(style="--color: var(--color-light-grey);")
+                                    i.fas.fa-sliders-h
+                        .boxSep.text-white
+                            | Notes
+                            .boxArrow.boxArrowDown
+                        .boxNotes.btn-shadow.text-white.font-poppins
+                            #CTBOX.control
+                                .controlName TYPE
+                                .noteBoxes
+                                    #basicCBOX.noteBox
+                                        .noteName CONTROL NAME 
+                                        input.basic(type='number' max='20' min='0' step='0.01' value='10.00')
+
+block append script
+    script(type='text/javascript').
+        const grades = !{JSON.stringify(grades)};
+
+    script(src="js/lib/fuzzysort.js")
+    script(src="js/lib/calculator.js")
+    script(src="js/grades/grades.js")

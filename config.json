@@ -1,0 +1,33 @@
+{
+    "_comment": "This is the configuration for the epinotes web version",
+    "port": 443,
+    "MICROSOFT":{
+        "REDIRECT_URL": "https://api.nyte.fr/api/login_microsoft",
+        "AZURE_CLIENT_ID": "91cf8aca-0f01-4ae1-9f6b-3d234f55adae",
+        "AZURE_TENANT_ID": "3534b3d7-316c-4bc9-9ede-605c860f49d2",
+        "AZURE_CLIENT_SECRET": "2b-zAtcoea-uZ-l_a8u57_yM5079u41e7f"
+    },
+    "DDB": {
+        "host": "localhost",
+        "username": "nyte_user",
+        "password": "prevennyte",
+        "database": "nyte"
+    },
+    "CRI": {
+        "CSRF_TOKEN": "cQPIhlsgb69f3KSjKTrn62nHUWEIEPBk6lRRSmmCvUnyo6fVmGFN1vDpB1dLotOZ",
+        "AUTHORIZATION": "bHVrYXMuZGVyb256aWVyOlNheG9waG9uZTE="
+    },
+    "SSL":{
+        "fullchain": "/etc/letsencrypt/live/api.nyte.fr/fullchain.pem",
+        "privkey": "/etc/letsencrypt/live/api.nyte.fr/privkey.pem"
+    },
+    "SESSIONS":{
+        "LIFETIME": 7200000,
+        "SECRET": "adrien le bg de la night"
+    },
+    "SIOFU":{
+        "port": 8000,
+        "path": "uploads",
+        "maxFileSize": 75000000
+    }
+}

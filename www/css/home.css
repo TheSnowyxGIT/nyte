@@ -1,0 +1,42 @@
+@font-face {
+
+    font-family: "police6_moyen";
+    src: url('Fonts/police6_moyen.ttf');
+}
+
+@font-face {
+
+    font-family: "police6_tiny";
+    src: url('Fonts/police6_tiny.ttf');
+}
+
+@font-face {
+
+    font-family: "police6_normal";
+    src: url('Fonts/police6_normal.ttf');
+}
+
+
+.container {
+    background-color: rgb(var(--color1-base));
+}
+
+
+.box {
+    background: rgb(var(--color2-base));
+    box-shadow: 0 8px 16px 0 rgba(var(--color3-base), 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(var(--color5-base), 0.18);
+    width: 90%;
+    max-width: 600px;
+    height: 700px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@media screen and (max-width : 985px) {}

@@ -1,0 +1,90 @@
+
+
+/*------------ Navigation ------------*/
+
+#nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: var(--text-dark);
+    flex-direction: column;
+    z-index: 10;
+}
+
+#nav .collapse {
+    max-height: 0px;
+    overflow-y: hidden;
+    transition: all 0.6s ease;
+}
+
+#nav .collapse ul{
+    flex-direction: column;
+    text-align: center;
+    padding: 0 3rem;
+}
+
+#nav .collapse ul > li{
+    padding: 0 1.5rem;
+    line-height: 3rem;
+    font-size: 1.1em;
+}
+
+#nav .toggle-btn > button {
+    font-size: 2em;
+    position: absolute;
+    right: 0; top: 0;
+    padding: 1rem;
+    color: var(--text-white)
+}
+
+.active {
+    max-height: 50vh !important;
+}
+
+/*------------ /Navigation ------------*/
+
+/*------------ Media Queries ------------*/
+
+/* for large screen sm (640px) */
+@media (min-width: 640px) {
+    
+}
+
+/* for large screen md (768px) */
+@media (min-width: 768px) {
+    
+}
+
+/* for large screen lg (1024px) */
+@media (min-width: 1024px) {
+
+    #nav .toggle-btn > button {
+        display: none;
+    }
+
+    #nav {
+        flex-direction: row !important;
+    }
+
+    #nav .collapse {
+        max-height: initial !important;
+    }
+
+    #nav .collapse ul {
+        flex-direction: row !important;
+    }
+
+    .active {
+        max-height: 100% !important;
+    }
+    
+}
+
+/* for large screen xl (1280px) */
+@media (min-width: 1280px) {
+    
+}
+
+/*------------ /Media Queries ------------*/

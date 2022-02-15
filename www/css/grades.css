@@ -1,0 +1,559 @@
+
+
+
+.value.Valid {
+    color: var(--text-green);
+}
+
+.value.NoValid {
+    color: var(--text-red);
+}
+
+.value.none {
+    color: var(--text-white);
+}
+
+/*------------ Search Bar Object ------------*/
+
+
+.search_bar {
+    min-height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    padding: 15px 0;
+}
+
+.search_bar .search_box {
+    height: 100%;
+    width: 500px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.search_bar .search_button {
+    width: 40px;
+    height: 40px;
+    background-color: var(--text-light);
+    border-radius: 5px 0px 0px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search_bar .search_input {
+    outline: none;
+    background-color: var(--text-light);
+    border: 0px;
+    border-left: 4px solid #0000;
+    height: 40px;
+    border-radius: 0px 5px 5px 0px;
+    width: 100%;
+    font-size: 90%;
+}
+
+.search_bar .search_button i {
+    opacity: 0.3;
+}
+
+
+/*------------ /Search Bar Object ------------*/
+
+/*------------ Dial Object ------------*/
+
+
+.dial {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 100%;
+    --percent: calc(var(--note) * 100% / 20);
+    --color: hsl(calc(var(--note) * 5), var(--hsl-s), var(--hsl-l));
+    background: conic-gradient(from 180deg, var(--color), var(--percent), var(--text-dark3), var(--percent), var(--text-dark3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.dial.empty {
+    --percent: calc(100%);
+    --color: var(--text-gray);
+    background: conic-gradient(from 180deg, var(--color), var(--percent), #0004, var(--percent), #0004);
+}
+
+.dialVal {
+    width: 75%;
+    height: 75%;
+    background: var(--back-color);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+}
+
+
+/*------------ /Dial Object ------------*/
+
+
+/*------------ progressBar Object ------------*/
+
+.progressBar {
+    background-color: var(--text-dark3);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 10px;
+}
+
+.progressBar .slide {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% * (20 - var(--value)) / 20);
+    background-color: hsl(calc(var(--value) * 5), var(--hsl-s), var(--hsl-l));
+}
+
+.progressBar.empty .slide {
+    right: 0;
+    background-color: rgb(var(--color-light-grey));;
+}
+
+/*------------ /progressBar Object ------------*/
+
+/*------------ subjectBox Object ------------*/
+
+.box {
+    width: 100%;
+    border-radius: 5px;
+    background: var(--text-dark2);
+    margin-top: 1rem;
+}
+
+.box .boxHead {
+    height: 40px;
+    background: var(--bg-gradient-indingo);
+    display: flex;
+}
+
+.box.NoValid .boxHead {
+    background: var(--bg-gradient);
+}
+
+
+.box .boxSubject {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 30px);
+    height: 100%;
+    justify-content: center;
+}
+
+.box .boxSummary {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 15px;
+}
+
+.box .boxDesc {
+    width: calc(90%);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.box .boxMenu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 35px;
+    width: 70px;
+    /*display: flex;*/
+    display: none;
+    justify-content: space-around;
+}
+
+.box .boxButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(var(--color));
+    height: 100%;
+    width: 50%;
+    cursor: pointer;
+    color: black;
+}
+
+.box .boxButton:hover {
+    background-color: rgba(var(--color), 0.5);
+}
+
+.box .boxSep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 30px;
+    font-size: larger;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-variant: small-caps;
+}
+
+.box .boxArrow {
+    width: 8px;
+    height: 8px;
+    border-bottom: 2px solid #ffffffb6;
+    border-right: 2px solid #ffffffb6;
+    margin-left: 10px;
+    transform: rotate(45deg);
+    transition: transform .1s;
+}
+
+.box .boxNotes {
+    justify-content: center;
+    /*background-color: #0001;*/
+    height: 0px;
+    overflow: hidden;
+    padding: 0;
+
+}
+
+.box.boxDeployed .boxNotes {
+    height: auto;
+    padding: 5px 20px;
+}
+
+.box.boxDeployed .boxArrow {
+    display: block;
+    transform: translateY(3px) rotate(225deg);
+}
+
+
+.box .noteType {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    font-variant: small-caps;
+}
+
+.box .noteBoxes {
+    overflow: hidden;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    gap: 20px;
+}
+
+
+.box .noteBox {
+    background-color: #0002;
+    padding: 0px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.box .noteName {
+    padding: 10px;
+    min-width: 20%;
+    max-width: calc(100% - 70px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.box input.basic {
+    width: 50%;
+    max-width: 70px;
+    min-height: 100%;
+    background-color: var(--text-dark3);
+    color: var(--text-white);
+    border: 0px;
+    text-align: center;
+}
+
+.box input.check {
+    margin: 5px;
+}
+
+.box .ct_avg {
+    width: 100%;
+    height: 3vh;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #0005;
+    overflow: hidden;
+    margin: 1px 0;
+}
+
+.box .ct_avg .name {
+    margin: 0 10px;
+    min-width: 60px;
+    width: 30%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.box .ct_avg .slidebg {
+    background-color: #0005;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+}
+
+.box .ct_avg .slidebg .slide {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% * (20 - var(--value)) / 20);
+    background-color: hsl(calc(var(--value) * 5), var(--hsl-s), var(--hsl-l));
+}
+
+.box .ct_avg.empty .slidebg .slide {
+    right: 0;
+    background-color: rgb(var(--color-light-grey));;
+}
+
+/* for large screen sm (640px) */
+@media (min-width: 640px) {
+
+}
+
+/* for large screen md (768px) */
+@media (min-width: 768px) {
+    .box .boxMenu {
+        height: 40px;
+        width: 80px;
+    }
+}
+
+/* for large screen lg (1024px) */
+@media (min-width: 1024px) {
+    .box .boxMenu {
+        height: 50px;
+        width: 100px;
+    }
+}
+
+/* for large screen xl (1280px) */
+@media (min-width: 1280px) {
+    .box .boxSummary {
+        flex-direction: row;
+    }
+
+    .box .boxDesc {
+        width: calc(75% - 7vw);
+    }
+}
+
+/*------------ /subjectBox Object ------------*/
+
+/*------------ Info area ------------*/
+
+.info-area {
+    width: 100%;
+    position: relative;
+}
+
+.info-area .info-grid{
+    min-height: 95vh;
+    padding-top: 15rem;
+    padding-bottom: 4rem;
+}
+
+
+/*------------ /Info area ------------*/
+
+
+
+/*------------ General area ------------*/
+
+.general-area {
+    width: 100%;
+}
+
+.general-area .main-average {
+    width: 400px;
+}
+
+
+/*------------ /General area ------------*/
+
+/*------------ Grades area ------------*/
+
+.grades-area {
+    width: 100%;
+}
+
+/*-- data area --*/
+
+.grades-area .data-area {
+    
+}
+.grades-area .data-area .module-btn {
+    margin-top: 0.5rem;
+}
+
+.grades-area .data-area .module-container {
+    min-height: 100vh;
+
+}
+
+/*-- /data area --*/
+
+/*-- module box --*/
+
+.module-box {
+    width: 100%;
+    border: 10px solid var(--text-dark);
+    margin: 3rem 0;
+}
+
+.module-box .subject-container {
+    gap: 1rem;
+}
+
+/*-- /module box --*/
+
+
+/*------------ /Grades area ------------*/
+
+
+
+
+/*------------ Media Queries ------------*/
+
+/* for large screen sm (640px) */
+@media (min-width: 640px) {
+    .dial {
+        width: 125px;
+        height: 125px;
+    }
+}
+
+/* for large screen md (768px) */
+@media (min-width: 768px) {
+    .dial {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* for large screen lg (1024px) */
+@media (min-width: 1024px) {
+    .dial {
+        width: 170px;
+        height: 170px;
+    }
+}
+
+/* for large screen xl (1280px) */
+@media (min-width: 1280px) {
+    .dial {
+        width: 185px;
+        height: 185px;
+    }
+}
+
+/*------------ /Media Queries ------------*/
+
+
+
+
+
+
+
+
+
+.popupSetting {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000a;
+    z-index: 1;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popupSetting.opened {
+    display: flex;
+}
+
+.popupBox {
+    background-color: rgb(var(--color1-base));
+}
+
+.popupHead {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+}
+
+.inputpopList {
+    padding: 10px 30px;
+}
+
+.inputpop {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+
+
+
+/* style note box */
+
+
+
+/*
+*/
+
+
+
+@media screen and (max-width: 1300px) {
+
+
+
+    .dialVal {
+        font-size: medium;
+    }
+
+
+}
+
+@media screen and (max-width: 700px) {
+
+
+    .dialVal {
+        font-size: medium;
+    }
+}
+
+@media screen and (max-height: 600px) {
+
+}

@@ -1,0 +1,106 @@
+extends layout_menu
+
+block append head 
+    title Nyte - statistiques
+    link(rel='stylesheet' href='css/stats.css')
+block content
+
+    section.banner-area.font-poppins
+        .banner-title.container.mx-auto
+            .title 
+                .py-2.branding.text-white.text-lg.sm-text-xl.font-bold
+                    span.d-block.animate__animated.animate__fadeInDown.animate__faster Site, Nyte
+                    span.d-block.animate__animated.animate__fadeInDown.animate__fast Statistiques et
+                    span.d-block.animate__animated.animate__fadeInDown Logs visualisateur
+                .py-5.animate__animated.animate__fadeInUp
+                    p.text-gray Nous melangeons statistiques et logs 
+                    p.text-gray pour suivre l'activité à tout moments
+                .py-5.animate__animated.animate__fadeInUp
+                    a.btn.btn-primary.bg-gradient.text-white.btn-shadow(href="#campus-area") Get Started
+    section#campus-area.campus-area.mx-auto.container.font-poppins
+            .title 
+                .py-2.text-white.text-lg.sm-text-xl.font-bold.text-center
+                    span Campus
+                .py-2.text-center
+                    p.text-gray Classements des campus,
+                    p.text-gray de la présence sur le site à la moyenne
+                    p.text-gray générale
+            .podium-area.grid.cols-1.lg-cols-2
+                .grid-one.ptop-10.flex.flex-column
+                    .py-2.text-white.text-md.font-bold.text-center.text-underline
+                        span Moyenne générale
+                    .podium.text-white.flex-grow
+                        .second.podium-bar
+                            h2.name.text-md.font-bold -
+                            .bar.bg-gradient-indingo
+                                i.fas.fa-award.text-xl
+                                span.value.text-white -
+                        .first.podium-bar
+                            h2.name.text-md.font-bold -
+                            .bar.bg-gradient
+                                i.fas.fa-award.text-xl
+                                span.value.text-white -
+                        .third.podium-bar
+                            h2.name.text-md.font-bold -
+                            .bar.bg-gradient-indingo
+                                i.fas.fa-award.text-xl
+                                span.value.text-white -
+			
+                .grid-two.ptop-10.flex.flex-column
+                    .py-2.text-white.text-md.font-bold.text-center.text-underline
+                        span Nombres de connexions
+                    .podium.text-white.flex-grow
+                        .second.podium-bar
+                            h2.name.text-md.font-bold -
+                            .bar.bg-gradient-indingo
+                                i.fas.fa-award.text-xl
+                                span.value.text-white -
+                        .first.podium-bar
+                            h2.name.text-md.font-bold -
+                            .bar.bg-gradient
+                                i.fas.fa-award.text-xl
+                                span.value.text-white -
+                        .third.podium-bar
+                            h2.name.text-md.font-bold -
+                            .bar.bg-gradient-indingo
+                                i.fas.fa-award.text-xl
+                                span.value.text-white -
+            .radar-area.py-10
+                canvas#campus_radar.text-white
+
+    section#activity-area.activity-area.mx-auto.container.font-poppins
+            .title 
+                .py-2.text-white.text-lg.sm-text-xl.font-bold.text-center
+                    span Activité
+                .py-2.text-center
+                    p.text-gray L'activité en temps réel des utilisateurs
+                    p.text-gray sous multiples formes !
+                    p.text-gray (pour l'instant sous une seul forme :p)
+            .connexion-area.grid.cols-1.lg-cols-2
+                .grid-one
+                    .py-2.text-white.text-md.font-bold 
+                        span Connexions :
+                    #stats_connexions.count-box
+                        .grid.cols-2.btn-shadow
+                            .total.item.text-center 
+                                h1.text-white.test-xl -
+                                span.text-gray Total
+                            .average.item.text-center 
+                                h1.text-white.test-xl -
+                                span.text-gray Moyenne journalière
+                            .campus.item.text-center 
+                                h1.text-white.test-xl.text-uppercase -
+                                span.text-gray Campus majoritaire
+                            .semester.item.text-center 
+                                h1.text-white.test-xl.text-uppercase -
+                                span.text-gray Semestre majoritaire
+                .grid-two
+                    canvas#daily_connexions
+  
+
+block append script
+    script(type='text/javascript').
+        const stats = !{JSON.stringify(stats)};
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js")
+    script(src="js/stats/stats.js")
+

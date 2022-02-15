@@ -1,0 +1,25 @@
+extends layout_withoutmenu
+block append head
+   link(rel='stylesheet' href='css/menu.css')
+block header
+   nav#nav.flex.font-poppins
+      .nav-brand 
+         a.text-white.text-lg.font-bold(href="/") Nyte
+      
+      .toggle-btn 
+         button.btn
+            i.fas.fa-align-right
+      
+      .collapse.flex-grow.d-block 
+         ul.flex
+            li
+               a.link(href="/grades") Mes notes
+            li
+               a.link(href="/lessons") Mes cours
+            li
+               a.link(href="/grades_ranking?type=semester&semester=s5") Classement
+            li
+               a.link(href="/stats") Statistiques
+block append script
+   script(src="js/nav.js")
+      

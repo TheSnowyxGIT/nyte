@@ -1,0 +1,27 @@
+html
+   head
+      meta(charset='utf-8')
+      meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+      script(src='/socket.io/socket.io.js')
+
+      link(rel='stylesheet' href='css/main.css')
+      link(rel='stylesheet' href='css/theme.css')
+
+
+      link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css")
+
+      link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+
+      block head
+   body
+      header.container-fluid 
+         block header
+      main.site-main.bg-gradient-dark2
+         block content
+      footer
+         block footer 
+   block script
+      script(type='text/javascript').
+         const socket = io()

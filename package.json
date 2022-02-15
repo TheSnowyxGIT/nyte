@@ -1,0 +1,34 @@
+{
+  "name": "nyte",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "sudo nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheSnowyxGIT/nyte.git"
+  },
+  "author": "adrien.pingard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheSnowyxGIT/nyte/issues"
+  },
+  "homepage": "https://github.com/TheSnowyxGIT/nyte#readme",
+  "dependencies": {
+    "@adrien.pgd/grades": "^1.1.0",
+    "@prisma/client": "^3.9.1",
+    "axios": "^0.25.0",
+    "express": "^4.17.2",
+    "express-mysql-session": "^2.1.7",
+    "express-session": "^1.17.2",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "pug": "^3.0.2",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "prisma": "^3.9.1"
+  }
+}
