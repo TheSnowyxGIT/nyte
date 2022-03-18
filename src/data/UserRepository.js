@@ -15,6 +15,11 @@ module.exports.user_exists = async (userId) => {
     return false;
 }
 
+module.exports.get_users = async () => {
+    const users = await prisma.user.findMany().catch(err => {throw Error.get_prisma(err)});
+    return users;
+}
+
 module.exports.upsert_user = async (mail, data) => {
     const data_update = Object.assign({}, data);
     delete data_update.login

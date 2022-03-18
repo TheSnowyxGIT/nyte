@@ -13,7 +13,17 @@ const microsoftService = require("../services/MicrosoftService");
 const authService = require("../services/AuthService");
 const userService = require("../services/UserService");
 const serverService = require("../services/ServerService");
+const statsService = require("../services/StatsService");
+const rankingService = require("../services/RankingService");
 
+
+router.get("/refresh_ranking", async (req, res) => {
+    await rankingService.rankings.load();
+
+    return Success.send(res, {
+          success: "Refreshed."
+    })
+})
 
 router.get("/login_microsoft", (req, res) => {
     const code = req.query.code;
@@ -28,6 +38,7 @@ router.get("/login_microsoft", (req, res) => {
                     id: user_id,
                     user_data: user_infos
                 }).then(() => {
+                    statsService.log_connexion(user_infos.login);
                     res.redirect('/');
                 }).catch(err => Error.send_err(res, err))
             }).catch(err => Error.send_err(res, err))

@@ -27,7 +27,7 @@ const check_option = {
 }
 
 const calculeTypes = {
-    LINEAIR: (sctype) => {
+    LINEAR: (sctype) => {
         if (!typeCheck("Object", sctype.typeData, check_option)) {
             throw { error: "SCTypeDataErrorError" };
         }
@@ -53,12 +53,54 @@ const calculeTypes = {
             average = sum / sum_coef;
         }
         return average;
+    },
+    THRESHOLDS: (sctype) => {
+        if (!typeCheck("[GRADETWENTY]", sctype.typeData, check_option)) {
+            throw { error: "SCTypeDataErrorError" };
+        }
+        let number_fails = 0;
+        let number_success = 0;
+        for (const control of Object.values(sctype.controls)) {
+            if (!control.value) {
+                continue;
+            }
+            if (!typeCheck("{success: Boolean}", control.value, check_option)) {
+                throw { error: "ControlGradeDataError" };
+            }
+            if (!typeCheck("Object", control.data, check_option)) {
+                throw { error: "ControlDataError" };
+            }
+            if (control.value.success){
+                number_success += 1;
+            } else {
+                number_fails += 1;
+            }
+        }
+
+        let average = NaN;
+        if (number_fails + number_success == 0){
+            return average;
+        }
+        if (number_success == 0){
+            average = sctype.typeData[0]
+        } else if (number_success >= sctype.typeData.length){
+            average = sctype.typeData[sctype.typeData.length - 1]
+        } else {
+            average = sctype.typeData[number_success];
+        }
+        return average;
     }
 }
 
 const checkTypes = {
-    LINEAIR: (value) => {
+    LINEAR: (value) => {
         if (!typeCheck("{grade: GRADETWENTY}", value, check_option)) {
+            return false;
+        }
+        return true;
+    },
+    THRESHOLDS: (value) => {
+        if (!typeCheck("{success: Boolean}", value, check_option)) {
             return false;
         }
         return true;
@@ -142,8 +184,13 @@ module.exports.eval_sctype = (sctype) => {
 
     let average = calculeTypes[sctype.type](sctype);
 
+    let total_controls = sctype.controls.length;
+    let completed_controls = Object.values(sctype.controls).filter(control => control.value).length;
+
     sctype.eval = {
-        value: average
+        value: average,
+        total_controls: total_controls,
+        completed_controls: completed_controls
     }
     return sctype.eval.value;
 }
@@ -165,6 +212,13 @@ module.exports.eval_subject = (subject) => {
         average = sum / coef_sum;
     }
 
+    let total_controls = Object.values(subject.sctypes).reduce((acc, sctype)=>{
+        return acc + sctype.eval.total_controls
+    }, 0);
+    let completed_controls = Object.values(subject.sctypes).reduce((acc, sctype)=>{
+        return acc + sctype.eval.completed_controls
+    }, 0);
+
     let status = average < 10 ? "Unvalidated" : "Validated";
     if (isNaN(average)) {
         status = "None";
@@ -172,7 +226,9 @@ module.exports.eval_subject = (subject) => {
     subject.eval = {
         value: average,
         status: status,
-        underthreshold: average < subject.threshold
+        underthreshold: average < subject.threshold,
+        total_controls: total_controls,
+        completed_controls: completed_controls
     }
     return subject.eval.value;
 }
@@ -239,14 +295,22 @@ module.exports.eval_module = (module) => {
     } else {
         status = "Validated";
     }
-
     if (isNaN(average)) {
         status = "None"
     }
 
+    let total_controls = Object.values(module.subjects).reduce((acc, subject)=>{
+        return acc + subject.eval.total_controls
+    }, 0);
+    let completed_controls = Object.values(module.subjects).reduce((acc, subject)=>{
+        return acc + subject.eval.completed_controls
+    }, 0);
+
     module.eval = {
         value: average,
-        status: status
+        status: status,
+        total_controls: total_controls,
+        completed_controls: completed_controls
     }
     return module.eval.value;
 }
@@ -256,13 +320,28 @@ module.exports.eval_semester = (semester) => {
         throw { error: "GradeStructureError", where: "eval_semester" };
     }
     let sum = Object.values(semester.modules).reduce((acc, module) => {
-        return acc + this.eval_module(module) * module.coef
+        let value = this.eval_module(module)
+        return acc + (isNaN(value) ? 0 : value * module.coef)
     }, 0);
     let coef_sum = Object.values(semester.modules).reduce((acc, module) => {
-        return acc + module.coef
+        return acc + (isNaN(module.eval.value) ? 0 : module.coef)
     }, 0);
+    let average = NaN;
+    if (coef_sum != 0) {
+        average = sum / coef_sum;
+    }
+
+    let total_controls = Object.values(semester.modules).reduce((acc, module)=>{
+        return acc + module.eval.total_controls
+    }, 0);
+    let completed_controls = Object.values(semester.modules).reduce((acc, module)=>{
+        return acc + module.eval.completed_controls
+    }, 0);
+
     semester.eval = {
-        value: sum / coef_sum
+        value: average,
+        total_controls: total_controls,
+        completed_controls: completed_controls
     }
     return semester.eval.value;
 }

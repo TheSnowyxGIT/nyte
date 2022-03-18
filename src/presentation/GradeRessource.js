@@ -11,15 +11,11 @@ const Success = require("../services/entities/Success")
  */
  const syntaxService = require("../services/SyntaxService");
  const gradeService = require("../services/GradeService");
-
+ const serverService = require("../services/ServerService")
 
 const calculator = require("@adrien.pgd/grades")
 
 
-/**
- *  Services
- */
- const serverService = require("../services/ServerService")
 
 router.get("/", serverService.need_connected, (req, res) => {
     const user_data = req.session.user_data;
@@ -35,6 +31,7 @@ router.get("/", serverService.need_connected, (req, res) => {
         res.render("grades", {
             user: {
                 login: user_data.login,
+                name: user_data.name
             },
             grades: grades
         });

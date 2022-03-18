@@ -5,14 +5,21 @@ class Control {
         obj.removeAttr('id');
         return obj;
     }
+    static getCheckHTML() {
+        let obj = $($("#checkCBOX")[0]).clone();
+        obj.removeAttr('id');
+        return obj;
+    }
     static getHTMLByType(type) {
         if (type === "LINEAR") {
             return this.getBasicHTML();
+        } else if (type === "THRESHOLDS") {
+            return this.getCheckHTML();
         } else {
             return this.getBasicHTML();
         }
     }
-    /*--- other ---*/
+    /*--- refreshs ---*/
     static refreshHTMLBasic(controlItem) {
         const value = controlItem.control.value;
         if (!value) {
@@ -22,15 +29,31 @@ class Control {
         } else {
             $(controlItem.obj).find("input").val("error");
         }
+        // set coef
+        $(controlItem.obj).find(".coef").text(`[x${controlItem.control.data.coef.toFixed(2)}]`);
+    }
+    static refreshHTMLCheck(controlItem) {
+        const value = controlItem.control.value;
+        $(controlItem.obj).removeClass("success");
+        $(controlItem.obj).removeClass("fail");
+        if (!value) {
+            ;
+        } else if (value.success) {
+            $(controlItem.obj).addClass("success");
+        } else {
+            $(controlItem.obj).addClass("fail");
+        }
     }
     static refreshHTMLByType(controlItem) {
         if (controlItem.type === "LINEAR") {
             return this.refreshHTMLBasic(controlItem);
+        } else if (controlItem.type === "THRESHOLDS") {
+            return this.refreshHTMLCheck(controlItem);
         } else {
             return this.refreshHTMLBasic(controlItem);
         }
     }
-    
+    /* Events */
     static setChangeEventBasic(controlItem){
         $(controlItem.obj).find("input").on("change", () => {
             var input = $(controlItem.obj).find("input");
@@ -60,10 +83,31 @@ class Control {
             controlItem.sctype.subject.module.refreshHTML();
         })
     }
+    static setChangeEventCheck(controlItem){
+        $(controlItem.obj).find("button").on("click", () => {
 
+            if ($(controlItem.obj).hasClass("success")){
+                controlItem.control.value = {success: false};
+                socket.emit("set_grade", { controlId: controlItem.control.id, value: {
+                    success: false
+                }});
+            } else if ($(controlItem.obj).hasClass("fail")) {
+                controlItem.control.value = undefined;
+                socket.emit("reset_grade", { controlId: controlItem.control.id});
+            } else {
+                controlItem.control.value = {success: true};
+                socket.emit("set_grade", { controlId: controlItem.control.id, value: {
+                    success: true
+                }});
+            }
+            controlItem.sctype.subject.module.refreshHTML();
+        })
+    }
     static setChangeEvent(controlItem){
         if (controlItem.type === "LINEAR") {
             this.setChangeEventBasic(controlItem);
+        } else if (controlItem.type === "THRESHOLDS") {
+            return this.setChangeEventCheck(controlItem);
         } else {
             this.setChangeEventBasic(controlItem);
         }
@@ -117,6 +161,8 @@ class ScType {
         this.obj = ScType.getHTML();
 
         $(this.obj).find(".controlName").text(this.sctype.name);
+        $(this.obj).find(".controlType").text(`[ ${this.sctype.type} ]`);
+        $(this.obj).find(".controlCoef").text(`[x${this.sctype.coef.toFixed(2)}]`);
 
         $(this.obj).find(".noteBoxes").empty();
         this.sctype.controls.forEach((control) => {
@@ -251,7 +297,8 @@ class Module {
 
         calculator.eval_module(this.module)
 
-        $(this.obj).find(".module-head").find(".title").find("p").text(`${(50).toFixed(2)}% rempli`)
+        const percent = this.module.eval.completed_controls / this.module.eval.total_controls * 100.0;
+        $(this.obj).find(".module-head").find(".title").find("p").text(`${percent.toFixed(2)}% rempli`)
 
         const average = this.module.eval.value;
         const status = this.module.eval.status;
@@ -414,7 +461,6 @@ class ModuleList {
         const index = mapped.indexOf(moduleId);
         const button = this.buttons[index];
         var checked = $(button.obj).find("input").is(":checked");
-        console.log(checked)
         if (checked) {
             button.selected = false;
         } else {
@@ -480,7 +526,9 @@ class Grade {
             this.moduleList.addModule(module, () => {
                 this.toggleModule(module);
             });
+            this.toggleModule(module)
         })
+
     }
 
     selectSemester(semester) {

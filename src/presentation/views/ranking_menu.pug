@@ -1,0 +1,41 @@
+extends layout_menu
+
+block append head 
+    title Nyte - Classement selection
+    link(rel='stylesheet' href='/css/ranking_menu.css')
+block content
+    section.page.ranking.w-100.text-white.font-poppins
+        section.description.container.mx-auto
+        section.semester_list.container.mx-auto
+
+
+
+    // models
+    models(style='display:none')
+
+        .semester_box#SemesterBox
+            .top.bg-gradient-dark
+                h1.name.text-lg.name S5 
+                a.link Classement
+            .bottom
+
+        .module_box#ModuleBox
+            .top.bg-gradient-dark
+                h2.code.text-md.name MATH1 
+                a.link Classement
+            .bottom
+    
+        .subject_box#SubjectBox
+            .top.bg-gradient-dark
+                h3.code.text-sm.name MATH1 
+                a.link Classement
+        
+
+
+
+
+
+block append script
+    script(type='text/javascript').
+        const semesters = !{JSON.stringify(semesters)};
+    script(src="/js/ranking/ranking_menu.js")

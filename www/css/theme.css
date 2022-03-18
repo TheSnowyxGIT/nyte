@@ -133,6 +133,11 @@ ul {
     text-align: center;
 }
 
+.text-xsm {
+    font-size: 0.75em;
+    line-height: 1em;
+}
+
 .text-sm {
     font-size: 1em;
     line-height: 1.5em;
@@ -189,6 +194,10 @@ ul {
 
 .justify-center {
     justify-content: center;
+}
+
+.align-center {
+    align-items: center;
 }
 
 .text-uppercase {
@@ -339,6 +348,13 @@ ul {
     width: 50%;
 }
 
+.h-100 {
+    height: 100%;
+}
+
+.h-50 {
+    height: 50%;
+}
 
 /*------------------ /Global Classes ------------------*/
 

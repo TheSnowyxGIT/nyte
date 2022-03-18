@@ -82,12 +82,14 @@ app.use("/api", apiRessource);
  const gradeRessource = require("./GradeRessource");
  app.use("/grades", gradeRessource);
  
- /*
  const statsRessource = require("./StatsRessource");
  app.use("/stats", statsRessource);
-*/
 
+ const profileRessource = require("./ProfileRessource");
+ app.use("/profile", profileRessource);
 
+ const rankingRessource = require("./RankingRessource");
+ app.use("/ranking", rankingRessource);
  
  module.exports.app = app;
  module.exports.sessionMiddleware = sessionMiddleware;

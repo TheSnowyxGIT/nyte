@@ -11,14 +11,15 @@ datasource db {
 }
 
 model User {
-  id     Int         @id @default(autoincrement())
-  email  String      @unique @db.VarChar(255)
-  login  String      @unique @db.VarChar(255)
-  role   Status      @default(UNKNOWN)
-  name   String      @db.VarChar(255)
-  campus Campus      @default(UNKNOWN)
-  groups UserGroup[]
-  Grade  Grade[]
+  id         Int         @id @default(autoincrement())
+  email      String      @unique @db.VarChar(255)
+  login      String      @unique @db.VarChar(255)
+  role       Status      @default(UNKNOWN)
+  name       String      @db.VarChar(255)
+  campus     Campus      @default(UNKNOWN)
+  groups     UserGroup[]
+  Grade      Grade[]
+  Connection Connexion[]
 }
 
 enum Status {
@@ -32,7 +33,7 @@ enum Campus {
   PARIS
   TOULOUSE
   RENNES
-  STRASGBOURG
+  STRASBOURG
   LYON
   UNKNOWN
 }
@@ -117,7 +118,7 @@ model SubjectControlType {
   controlType     ControlType @relation(fields: [controlTypeCode], references: [code])
   controlTypeCode String      @db.VarChar(255)
 
-  calcul     CalculType @default(LINEAIR)
+  calcul     CalculType @default(LINEAR)
   calculData Json       @default("{}")
 
   coef    Float     @default(1)
@@ -125,7 +126,8 @@ model SubjectControlType {
 }
 
 enum CalculType {
-  LINEAIR
+  LINEAR
+  THRESHOLDS
 }
 
 model Control {
@@ -134,8 +136,8 @@ model Control {
   subjectControlType   SubjectControlType @relation(fields: [subjectControlTypeId], references: [id])
   subjectControlTypeId Int
 
-  name String    @db.VarChar(255)
-  data Json       @default("{}")
+  name String @db.VarChar(255)
+  data Json   @default("{}")
 
   Grade Grade[]
 }
@@ -150,4 +152,13 @@ model Grade {
   userId Int
 
   value Json @default("{}")
+}
+
+model Connexion {
+  id Int @id @default(autoincrement())
+
+  user      User   @relation(fields: [userLogin], references: [login])
+  userLogin String @db.VarChar(255)
+
+  createAt DateTime @default(now())
 }

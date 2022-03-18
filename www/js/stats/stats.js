@@ -10,13 +10,12 @@ function generate_campus(campus_stats) {
 	const con_podium = sc.find(".grid-two").find(".podium");
 
 
-	const cr_avg = campus_stats.campus_ranking_avg;
+	const cr_avg = campus_stats.campus_ranking_avg.filter(obj => obj.average);
+	const cr_con = campus_stats.campus_ranking_connexion;
 
-	console.log(cr_avg)
-
-	const first = avg_podium.find(".first");
-	const second = avg_podium.find(".second");
-	const third = avg_podium.find(".third");
+	let first = avg_podium.find(".first");
+	let second = avg_podium.find(".second");
+	let third = avg_podium.find(".third");
 	if (cr_avg.length > 0) {
 		first.find(".name").text(cr_avg[0].campus);
 		first.find(".value").text(cr_avg[0].average.toFixed(2));
@@ -28,6 +27,23 @@ function generate_campus(campus_stats) {
 	if (cr_avg.length > 2) {
 		third.find(".name").text(cr_avg[2].campus);
 		third.find(".value").text(cr_avg[2].average.toFixed(2));
+	}
+	
+
+	first = con_podium.find(".first");
+	second = con_podium.find(".second");
+	third = con_podium.find(".third");
+	if (cr_con.length > 0) {
+		first.find(".name").text(cr_con[0].campus);
+		first.find(".value").text(cr_con[0].count);
+	}
+	if (cr_con.length > 1) {
+		second.find(".name").text(cr_con[1].campus);
+		second.find(".value").text(cr_con[1].count);
+	}
+	if (cr_con.length > 2) {
+		third.find(".name").text(cr_con[2].campus);
+		third.find(".value").text(cr_con[2].count);
 	}
 
 	let labels = cr_avg.map(obj => obj.campus);
@@ -87,7 +103,9 @@ function generate_connexions(connexions_stats) {
 	total_box.find("h1").text(connexions_stats.data.nb_connexions);
 	average_box.find("h1").text(connexions_stats.data.average.toFixed(2));
 	campus_box.find("h1").text(connexions_stats.data.campus);
-	semester_box.find("h1").text(connexions_stats.data.semester);
+	semester_box.find("h1").text(connexions_stats.data.best_user);
+
+	console.log(connexions_stats.data)
 
 	const dc_stats_reversed = connexions_stats.daily_connexions.reverse();
 

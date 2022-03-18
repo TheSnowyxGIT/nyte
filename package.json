@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/TheSnowyxGIT/nyte#readme",
   "dependencies": {
-    "@adrien.pgd/grades": "^1.1.0",
+    "@adrien.pgd/grades": "^1.1.5",
     "@prisma/client": "^3.9.1",
     "axios": "^0.25.0",
     "express": "^4.17.2",

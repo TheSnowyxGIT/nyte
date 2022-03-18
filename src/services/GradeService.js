@@ -51,6 +51,7 @@ module.exports.get_user_grades_details = async (userId) => {
         for (const module of Object.values(modules)){
             const _module = {
                 id: module.id,
+                code: module.code,
                 name: module.name,
                 coef: module.coef,
                 subjects: []
@@ -62,6 +63,7 @@ module.exports.get_user_grades_details = async (userId) => {
                 const _subject = {
                     id: subject.id,
                     name: subject.name,
+                    code: subject.code,
                     coef: subject.coef,
                     threshold: subject.threshold,
                     sctypes: []
@@ -71,7 +73,7 @@ module.exports.get_user_grades_details = async (userId) => {
                     const controls = await controlRepository.get_controls_by_scType(sctype.id);
                     const ct = await cTypeRepository.get_ctype_by_code(sctype.controlTypeCode);
                     const _sctype = {
-                        id: ct.id,
+                        id: sctype.id,
                         name: ct.name,
                         coef: sctype.coef,
                         type: sctype.calcul,
@@ -114,3 +116,42 @@ module.exports.set_grade = async (userId, controlId, value) => {
 module.exports.reset_grade = async (userId, controlId) => {
     return await gradeRepository.delete_grade(userId, controlId);
 };
+
+
+module.exports.get_all_epita_subjects = async () => {
+    const semesters = await prisma.semester.findMany().catch(err => {throw Error.get_prisma(err)});
+    let all_subjects = [];
+    for (const semester of Object.values(semesters)){
+        const _semester = {
+            id: semester.id,
+            name: semester.name,
+            modules: []
+        }
+        const modules = await moduleRepository.get_modules_by_semester(semester.id);
+        for (const module of Object.values(modules)){
+            const _module = {
+                id: module.id,
+                code: module.code,
+                name: module.name,
+                coef: module.coef,
+                subjects: []
+            }
+            const subjects = await subjectRepository.get_subjects_by_module(module.id);
+            for (const subject of Object.values(subjects)){
+                const _subject = {
+                    id: subject.id,
+                    name: subject.name,
+                    code: subject.code,
+                    coef: subject.coef,
+                    threshold: subject.threshold,
+                }
+                _module.subjects.push(_subject);
+            }
+            _semester.modules.push(_module);
+        }
+        all_subjects.push(_semester);
+    }
+    return all_subjects.sort((s1, s2) => {
+        return s1.name < s2.name ? -1 : 1;
+    });
+}

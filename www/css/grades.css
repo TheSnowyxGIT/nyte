@@ -233,6 +233,13 @@
     padding: 5px 20px;
 }
 
+
+.boxNotes .controlDesc {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .box.boxDeployed .boxArrow {
     display: block;
     transform: translateY(3px) rotate(225deg);
@@ -253,7 +260,7 @@
     overflow: hidden;
     height: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
@@ -267,6 +274,7 @@
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     overflow: hidden;
 }
 
@@ -279,8 +287,8 @@
     text-overflow: ellipsis;
 }
 
-.box input.basic {
-    width: 50%;
+.noteBoxes .noteBox input.basic {
+    flex-grow: 1;
     max-width: 70px;
     min-height: 100%;
     background-color: var(--text-dark3);
@@ -289,9 +297,27 @@
     text-align: center;
 }
 
-.box input.check {
-    margin: 5px;
+.noteBoxes .noteBox button.check {
+    width: 50%;
+    max-width: 70px;
+    min-height: 100%;
+    background-color: var(--text-dark3);
+    border: 0px;
+    text-align: center;
+    cursor: pointer;
 }
+
+.noteBox button.check i {
+    color: var(--text-gray) 
+}
+.noteBox.success button.check i {
+    color: var(--text-green) 
+}
+.noteBox.fail button.check i {
+    color: var(--text-red) 
+}
+
+
 
 .box .ct_avg {
     width: 100%;

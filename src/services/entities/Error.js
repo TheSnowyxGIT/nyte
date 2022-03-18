@@ -17,6 +17,8 @@ module.exports.types = {
 
     SCTypeNotExists: {type: "SCTypeNotExists", code: 403 },
     CalculTypeData: {type: "CalculTypeData", code: 403 },
+
+    InvalidRequest: {type: "InvalidRequest", code: 400}
 }
 
 

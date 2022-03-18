@@ -34,6 +34,7 @@ const criService = require("../services/CriService");
             const mail = user_data.mail;
             const name = user_data.displayName;
 
+
             if (!syntaxService.epita_mail(mail)) {
                 return reject(Error.get(Error.types.Unauthorize, {
                     message: 'this user is not allow to access because his email do not end by epita.fr',
@@ -42,7 +43,7 @@ const criService = require("../services/CriService");
             criService.get_userinfo(mail).then(user_data => {
                 const login = user_data.login;
                 const role = user_data.role;
-
+                const campus = user_data.campus;
                 const groups = user_data.groups;
 
                 const data = {
@@ -50,6 +51,7 @@ const criService = require("../services/CriService");
                     email: mail,
                     login: login,
                     role: role,
+                    campus: campus
                 }
                 save_user(mail, data, groups).then(id => {
                     resolve(id)

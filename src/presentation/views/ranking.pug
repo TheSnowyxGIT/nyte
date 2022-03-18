@@ -1,0 +1,54 @@
+extends layout_menu
+
+block append head 
+    title Nyte - Classement
+    link(rel='stylesheet' href='/css/ranking.css')
+block content
+    section.ranking.w-100.text-white
+        section.user-ranking.font-poppins
+            section.ranking-header
+                h1 Classement
+                .ranking-type.flex.justify-center
+                    h3.mx-5 Type :  
+                    h3.type.mx-5 s5-MATH
+                .ranking-type.flex.justify-center
+                    h3.mx-5 Derniere update :  
+                    h3.date.mx-5 Il y a 30min
+            section.user-data.btn-shadow
+                section
+                    h1.name.text-lg Prenom Nom
+                section.statistics
+                    article.statistic
+                        h4.statistic-title.text-md Moyenne 
+                        h3.average.statistic-value.text-lg.text-red --
+                    article.statistic
+                        h4.statistic-title.text-md Percentage 
+                        h3.percent.statistic-value.text-lg.text-red --
+                .dial 
+                    h2.position.dial-position.text-red.text-xl.font-bold --
+                    h2.total.text-dark.text-sm / 0
+
+        section.users-ranking.font-poppins
+            .info
+                p Le classement ne depend pas seulement de la moyenne mais également du pourcentage de notes remplies.
+            d1.leaderboard
+
+
+    // models
+    models(style='display:none')
+        dt#LeaderRowProgress
+            article.progress
+                section.progress-bar
+        dd#LeaderRowData
+            .leaderboard-name adrien.pingard
+            .leaderboard-campus TOULOUSE
+            .leaderboard-percent 80%
+            .leaderboard-value.font-bold 19.86
+
+
+
+block append script
+    script(type='text/javascript').
+        const ranking = !{JSON.stringify(ranking)};
+        const user_login = "!{user.login}"
+    script(src="/js/ranking/ranking.js")

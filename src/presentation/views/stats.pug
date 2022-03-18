@@ -2,7 +2,7 @@ extends layout_menu
 
 block append head 
     title Nyte - statistiques
-    link(rel='stylesheet' href='css/stats.css')
+    link(rel='stylesheet' href='/css/stats.css')
 block content
 
     section.banner-area.font-poppins
@@ -93,7 +93,7 @@ block content
                                 span.text-gray Campus majoritaire
                             .semester.item.text-center 
                                 h1.text-white.test-xl.text-uppercase -
-                                span.text-gray Semestre majoritaire
+                                span.text-gray Utilisateur majoritaire
                 .grid-two
                     canvas#daily_connexions
   
@@ -102,5 +102,5 @@ block append script
     script(type='text/javascript').
         const stats = !{JSON.stringify(stats)};
     script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js")
-    script(src="js/stats/stats.js")
+    script(src="/js/stats/stats.js")
 

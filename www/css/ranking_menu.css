@@ -1,0 +1,108 @@
+* {
+    outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	font-weight: 300;
+}
+
+h1, h2 {
+	font-size: 1.5em;
+}
+
+.page {
+    min-height: 100vh;
+    padding-top: 12rem;
+}
+
+.semester_list {
+}
+
+
+a.link {
+    cursor: pointer;
+}
+
+/*------ Semester Box --------*/
+
+.semester_box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.semester_box > .top {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.semester_box > .bottom {
+    padding-left: 40px;
+}
+
+
+
+.module_box {
+    margin-top: 2px;
+}
+
+.module_box > .top {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module_box > .bottom {
+    padding-left: 40px;
+}
+
+
+.subject_box {
+    margin-top: 2px;
+}
+
+.subject_box > .top {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/*------ /Semester Box -------*/
+
+/*------------ Media Queries ------------*/
+
+/* for large screen sm (640px) */
+@media (min-width: 640px) {
+
+}
+
+/* for large screen md (768px) */
+@media (min-width: 768px) {
+
+}
+
+/* for large screen lg (1024px) */
+@media (min-width: 1024px) {
+
+    
+}
+
+/* for large screen xl (1280px) */
+@media (min-width: 1280px) {
+
+}
+
+/*------------ /Media Queries ------------*/

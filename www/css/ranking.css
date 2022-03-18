@@ -1,0 +1,193 @@
+* {
+    outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+}
+
+h1,
+h2 {
+    font-size: 1.5em;
+}
+
+.ranking {
+    display: flex;
+    overflow: hidden;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.ranking>.user-ranking {
+    flex-grow: 1;
+    text-align: center;
+    background-color: var(--text-dark);
+    padding-top: 7rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.ranking>.users-ranking {
+    flex-grow: 1;
+    width: 100%;
+    padding: 40px;
+    padding-top: 7rem;
+}
+
+/*---- Dial ----*/
+.dial {
+    text-shadow: inset 1px 1px 0 rgba(255, 255, 255, 1);
+    background: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    height: 150px;
+    width: 150px;
+    margin: 50px 0;
+    padding: 40px;
+    box-shadow: 0 4px 15px -10px rgba(0, 0, 0, .1), 0 5px 15px 1px rgba(0, 0, 0, .18), 0 0 0 15px #fff, 0 0 0 22px var(--text-red), 0 55px 50px -20px rgba(34, 36, 38, .25);
+}
+
+.dial .dial-position {}
+
+/*---- /Dial ----*/
+
+/*---- Statistics ----*/
+
+.statistics {
+    display: flex;
+    justify-content: center;
+}
+
+.statistics>.statistic {
+    padding: 0px 20px;
+    min-width: 120px;
+}
+
+.statistics>.statistic:not(:last-child) {
+    box-shadow: 20px 0px 0px -19px rgba(255, 255, 255, 0.2);
+}
+
+/*---- /Statistics ----*/
+
+/*---- Progress ----*/
+
+.progress {
+    display: flex;
+    background: var(--text-dark);
+    min-height: 12px;
+    overflow: hidden;
+}
+
+.progress .progress-bar {
+    width: calc(var(--value) * 5%);
+    background-color: hsl(calc(var(--value) * 5), var(--hsl-s), var(--hsl-l));
+}
+
+/*---- /Progress ----*/
+
+
+
+.info {
+    width: 100%;
+    background: var(--text-green);
+    color: var(--text-dark);
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 45px;
+}
+
+/*---- LeaderBoard ----*/
+
+.leaderboard {
+    height: 100%;
+    counter-reset: leaderboard-counter;
+}
+
+.leaderboard dt {
+    position: relative;
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+
+.leaderboard dt::before {
+    content: counter(leaderboard-counter);
+    counter-increment: leaderboard-counter;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.3em;
+    line-height: .8;
+    font-weight: 400;
+}
+
+.leaderboard dd {
+    display: flex;
+    margin-bottom: 40px;
+    margin-left: 40px;
+    justify-content: space-between;
+}
+
+dd>.leaderboard-campus {
+    display: none;
+}
+
+dd>.leaderboard-percent {
+    display: none;
+}
+
+/*---- /LeaderBoard ----*/
+
+/*---- Left panel ---*/
+
+.ranking-header {}
+
+.user-data {
+    flex-grow: 1;
+    height: 50%;
+    padding: 40px;
+    margin-top: 40px;
+}
+
+/*---- Ranking Header ---*/
+
+
+
+
+/*------------ Media Queries ------------*/
+
+/* for large screen sm (640px) */
+@media (min-width: 640px) {
+    dd>.leaderboard-percent {
+        display: block;
+    }
+}
+
+/* for large screen md (768px) */
+@media (min-width: 768px) {
+    dd>.leaderboard-campus {
+        display: block;
+    }
+}
+
+/* for large screen lg (1024px) */
+@media (min-width: 1024px) {
+    .ranking {
+        flex-direction: row;
+    }
+
+    .ranking>.users-ranking {
+        width: 50%;
+    }
+}
+
+/* for large screen xl (1280px) */
+@media (min-width: 1280px) {}
+
+/*------------ /Media Queries ------------*/

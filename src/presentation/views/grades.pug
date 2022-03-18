@@ -2,7 +2,7 @@ extends layout_menu
 
 block append head 
     title EpiMarks - Notes
-    link(rel='stylesheet' href='css/grades.css')
+    link(rel='stylesheet' href='/css/grades.css')
 block content
 
     .popupSetting#popupSubject
@@ -29,27 +29,33 @@ block content
         .info-grid.container.mx-auto.grid.cols-1.lg-cols-2
             .grid-one
                 .py-2.welcome.text-white.text-lg.sm-text-xl.font-bold
-                    span.d-block.animate__animated.animate__fadeInDown.animate__faster Bienvenue, Adrien Pingard
+                    span.d-block.animate__animated.animate__fadeInDown.animate__faster Bienvenue, !{user.name}
                 .py-5.animate__animated.animate__fadeInUp
-                    a.mr-2.btn.btn-primary.bg-gradient.text-white.btn-shadow(href="/profile") Profil
+                    //a.mr-2.btn.btn-primary.bg-gradient.text-white.btn-shadow(href="/profile") Profil
                     a.mr-2.btn.btn-secondary.bg-gradient-indingo.text-white.btn-shadow(href="#grades-area") Rentrer mes notes
                 .py-5.card.animate__animated.animate__fadeInUp
             .grid-two.text-white.btn-shadow.animate__animated.animate__bounceInRight
                 .title.py-5.mx-5.text-white.text-lg.sm-text-xl.font-bold
                     span Informations
                 .information-area.py-5.mx-10
-                    p bla bla bla bla
-                    p bla bla bla blabla bla
-                    p bla bla bla blabla
-                    p bla bla bla blabla blabla bla
-
+                    p Nyte est un site qui vous permet de rentrer vos notes
+                    p tout en les sauvagardant.
+                    br
+                    P De plus le site vous calcul les differentes moyennes et
+                    p donne un aperçu des validations.
+                    br
+                    p Il est malheuresement que disponible pour les S5 et S6
+                    br
+                    br
+                    p Toutes les notes ne sont pas disponible, 
+                    p elles vont arriver au cours de l'année
     section#grades-area.grades-area.font-poppins
         .title.py-10
             .py-2.text-white.text-lg.sm-text-xl.font-bold.text-center
                 span Mes notes
             .py-2.text-center
                 p.text-gray Le calcul de note essaye de respecter au mieux les spécifications délivrées par EPITA.
-                p.text-gray Mais pour certaines matières, il est possible que nous ayons changer quelque peu le système d'evaluation.
+                //p.text-gray Mais pour certaines matières, il est possible que nous ayons changer quelque peu le système d'evaluation.
                 br
                 p.text-gray Pour les differents coefficients, je vous conseil de vous referer aux documents officiels EPITA,
                 p.text-gray en attendant qu'ils soient visibles directement depuis le site.
@@ -104,8 +110,9 @@ block content
                                 span.value STATUS
                 .subject-container.py-5.grid.cols-1.lg-cols-2
                     #SubjectHTML.box.btn-shadow
-                        .boxHead.text-white
-                            .boxSubject MATIERE NAME
+                        .boxHead.text-white.flex.align-center
+                            .boxSubject.flex-grow MATIERE NAME
+                            .subjectCoef.text-gray.text-xsm [x1.00]
                         .boxSummary
                             // indiquer la couleur et la note dans --note et --color
                             .mx-5.text-white.dial(style='--note:10; --back-color:var(--text-dark)')
@@ -126,16 +133,26 @@ block content
                             .boxArrow.boxArrowDown
                         .boxNotes.btn-shadow.text-white.font-poppins
                             #CTBOX.control
-                                .controlName TYPE
+                                .controlDesc
+                                    .controlName TYPE
+                                    .flex.align-center
+                                        .controlCoef.text-gray.text-xsm [x1.5]
+                                        .controlType.text-red.text-xsm [ LINEAIRE ]
                                 .noteBoxes
                                     #basicCBOX.noteBox
+                                        .noteName CONTROL NAME
+                                        div.flex.h-100.align-center
+                                            .coef.text-gray.text-xsm [x2]
+                                            input.basic(type='number' max='20' min='0' step='0.01' value='10.00')
+                                    #checkCBOX.noteBox
                                         .noteName CONTROL NAME 
-                                        input.basic(type='number' max='20' min='0' step='0.01' value='10.00')
+                                        button.check 
+                                            i.fa-solid.fa-star
 
 block append script
     script(type='text/javascript').
         const grades = !{JSON.stringify(grades)};
 
-    script(src="js/lib/fuzzysort.js")
-    script(src="js/lib/calculator.js")
-    script(src="js/grades/grades.js")
+    script(src="/js/lib/fuzzysort.js")
+    script(src="/js/lib/calculator.js")
+    script(src="/js/grades/grades.js")
